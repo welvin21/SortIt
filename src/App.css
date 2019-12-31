@@ -16,12 +16,12 @@
   border: min(1px,1vw) solid #000;
 
   display: grid;
-  grid-template-columns: repeat(4,1fr);
+  grid-template-columns: repeat(5,1fr);
   grid-gap: 2%;
   align-items: flex-end;
 }
 
-#array_slider{
+#array_slider, #speed_slider{
   padding-bottom: 0;
 }
 
@@ -29,23 +29,32 @@
   width: 20vw;
 }
 
-.button{
+button{
   width: 100%;
-  font-size: 100%;
-  font-weight: 500;
+  padding: 2% 5%;
+  font-size: 90%;
+  font-weight: 900;
   border-radius: 5px;
+  color: #fff;
 }
 
 /* Main */
 .main{
-  padding: 0 5px;
   height: 100%;
+  display: flex;
 }
 
 .bar{
+  align-self: flex-end;
   display: inline-block;
-  background-color: aqua;
-  border: 1px solid #e6e6e6;
+}
+
+.bar-number{
+  height: 100%;
+  font-weight: 900;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 @media (max-width : 560px){
