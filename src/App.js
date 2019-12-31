@@ -1,33 +1,38 @@
 import React, { Component } from 'react';
 import './App.css';
 import Header from './components/Header';
+import algorithms from './algorithms/algorithms';
 
 class App extends Component{
   state = {
     arr : [],
+    arrSorted : [],
     arrSize : 50,
-    algo : 1
+    algo : 0,
+    isSorting : false,
+    speed : 500
   };
 
   componentDidMount = () => {
     const { arrSize } = this.state;
 
-    let arr = [];
-    for(let i=1 ; i<=arrSize ; ++i){
-      arr.push(i);
-    }
-
-    this.setState({arr});
+    const arr = [...Array(arrSize).keys()].map(elem => elem+1);
+    const arrSorted = [...Array(arrSize).keys()].map(elem => elem+1);
+    this.setState({arr, arrSorted});
   }
 
   onSliderChange = newArrSize => {
     const arrSize = newArrSize;
-    let arr = [];
-    for(let i=1 ; i<=arrSize ; ++i){
-      arr.push(i);
-    }
 
-    this.setState({arr, arrSize});
+    const arr = [...Array(arrSize).keys()].map(elem => elem+1);
+    const arrSorted = [...Array(arrSize).keys()].map(elem => elem+1);
+    this.setState({arr, arrSorted, arrSize});
+  }
+
+  onSpeedChange = newSpeed => {
+    const speed = newSpeed;
+
+    this.setState({speed});
   }
 
   onSelectorChange = algo => {
@@ -35,38 +40,60 @@ class App extends Component{
   }
 
   onShuffleClick = () => {
-    let { arr } = this.state;
-    let counter = arr.length;
+    let { arr,arrSize } = this.state;
 
-    while (counter > 0) {
-        let index = Math.floor(Math.random() * counter);
-        counter--;
+    while (arrSize > 0) {
+        let index = Math.floor(Math.random() * arrSize);
+        arrSize--;
 
-        let temp = arr[counter];
-        arr[counter] = arr[index];
+        let temp = arr[arrSize];
+        arr[arrSize] = arr[index];
         arr[index] = temp;
     }
 
     this.setState({arr});
   }
 
+  onSortClick = () => {
+    let { isSorting } = this.state;
+    this.setState({ isSorting: !isSorting });
+  }
+
+  sort = async() => {
+    let { arr, arrSorted, algo } = this.state;
+
+    if((JSON.stringify(arr) !== JSON.stringify(arrSorted))){
+      arr = await algorithms[algo](arr);
+      this.setState({arr});
+    }else{
+      this.setState({isSorting : false});
+    }
+    return;
+  }
+
   render(){
-    const { arr, arrSize, algo } = this.state;
+    const { arr, arrSize, algo, isSorting, speed } = this.state;
+    const data = {arrSize, algo, speed, isSorting};
+    const width = `${100/arrSize}%`;
+    const fontSize = `${40/arrSize}vw`;
+    
+    if(isSorting){
+      setTimeout(() => this.sort(), 1000-speed);
+    }
 
     return(
       <div className='app'>
         <Header 
-          arrSize={arrSize} 
-          algo={algo}
+          data={data}
           onSliderChange={newArrSize => {this.onSliderChange(newArrSize)}}
+          onSpeedChange={newSpeed => {this.onSpeedChange(newSpeed)}}
           onSelectorChange={newAlgo => {this.onSelectorChange(newAlgo)}}
           onShuffleClick={() => {this.onShuffleClick()}}
+          onSortClick={() => {this.onSortClick()}}
         />
         <div className='main'>
           {arr.map(elem => {
-            const height = `${elem/arrSize * 100}%`;
-            const width = `${100/arrSize}%`;
-            const fontSize = `${40/arrSize}vw`;
+            const height = `${(elem+1)/(arrSize+1) * 100}%`;
             const backgroundColor = `hsl(${elem/arrSize * 360},100%,80%)`;
             const style = {
               height,
@@ -74,7 +101,11 @@ class App extends Component{
               fontSize,
               backgroundColor
             }
-            return(<div key={elem} className='bar' style={style}>{elem}</div>)
+            return(
+              <div key={elem} className='bar' style={style}>
+                <div className='bar-number'>{elem}</div>
+              </div>
+            );
           })}
         </div>
       </div>
