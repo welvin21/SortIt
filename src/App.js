@@ -10,12 +10,12 @@ class App extends Component{
     arrSize : 50,
     algo : 0,
     isSorting : false,
-    speed : 500
+    speed : 500,
+    frames : []
   };
 
   componentDidMount = () => {
     const { arrSize } = this.state;
-
     const arr = [...Array(arrSize).keys()].map(elem => elem+1);
     const arrSorted = [...Array(arrSize).keys()].map(elem => elem+1);
     this.setState({arr, arrSorted});
@@ -23,7 +23,6 @@ class App extends Component{
 
   onSliderChange = newArrSize => {
     const arrSize = newArrSize;
-
     const arr = [...Array(arrSize).keys()].map(elem => elem+1);
     const arrSorted = [...Array(arrSize).keys()].map(elem => elem+1);
     this.setState({arr, arrSorted, arrSize});
@@ -31,7 +30,6 @@ class App extends Component{
 
   onSpeedChange = newSpeed => {
     const speed = newSpeed;
-
     this.setState({speed});
   }
 
@@ -41,7 +39,6 @@ class App extends Component{
 
   onShuffleClick = () => {
     let { arr,arrSize } = this.state;
-
     while (arrSize > 0) {
         let index = Math.floor(Math.random() * arrSize);
         arrSize--;
@@ -55,20 +52,22 @@ class App extends Component{
   }
 
   onSortClick = () => {
-    let { isSorting } = this.state;
-    this.setState({ isSorting: !isSorting });
+    let { arr, arrSorted, algo, isSorting } = this.state;
+    isSorting = !isSorting;
+    if(isSorting && (JSON.stringify(arr) !== JSON.stringify(arrSorted))){
+      algorithms[algo](arr).then(frames => this.setState({frames, isSorting}));
+    }
+    this.setState({ isSorting });
   }
 
-  sort = async() => {
-    let { arr, arrSorted, algo } = this.state;
-
-    if((JSON.stringify(arr) !== JSON.stringify(arrSorted))){
-      arr = await algorithms[algo](arr);
-      this.setState({arr});
+  sort = () => {
+    let { arr, frames } = this.state;
+    if(frames.length > 0){
+      arr = frames.shift();
+      this.setState({arr, frames});
     }else{
-      this.setState({isSorting : false});
+      this.setState({isSorting: false});
     }
-    return;
   }
 
   render(){
