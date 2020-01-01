@@ -5,7 +5,8 @@ const algorithms = [
   {name: 'Bubble Sort', key: 0},
   {name: 'Insertion Sort', key: 1},
   {name: 'Selection Sort', key: 2},
-  {name: 'Quick Sort', key: 3}
+  {name: 'Quick Sort', key: 3},
+  {name: 'Heap Sort', key: 4},
 ]
 
 class Header extends Component{
