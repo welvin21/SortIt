@@ -7,6 +7,7 @@ const algorithms = [
   {name: 'Selection Sort', key: 2},
   {name: 'Quick Sort', key: 3},
   {name: 'Heap Sort', key: 4},
+  {name: 'Radix Sort', key: 5},
 ]
 
 class Header extends Component{

@@ -1,4 +1,5 @@
 const merge = (left, right) => {
+  //TODO : implement mergeSort
   const merged = [];
   while(left.length && right.length){
     if(left[0] < right[0]){
