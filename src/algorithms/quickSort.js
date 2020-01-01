@@ -20,7 +20,7 @@ const partition = (frames, tmp, left, right) => {
   return i;
 }
 
-const main = (frames, tmp, len, left, right) => {
+const main = async(frames, tmp, len, left, right) => {
   let index;
   if (len > 1){
     index = partition(frames, tmp, left, right);
@@ -36,7 +36,7 @@ const quickSort = async(arr) => {
   let frames = [];
   let tmp = [...arr];
   let len = tmp.length;
-  main(frames, tmp, len, 0, len-1);
+  main(frames, tmp, len, 0, len-1).then(() => {});
   return frames;
 };
 

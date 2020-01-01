@@ -14,7 +14,6 @@ const selectionSort = async(arr) => {
       frames.push([...tmp]);
     }
   }
-  console.log(frames.length);
   return frames;
 };
 

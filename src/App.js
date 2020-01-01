@@ -7,10 +7,10 @@ class App extends Component{
   state = {
     arr : [],
     arrSorted : [],
-    arrSize : 50,
+    arrSize : 55,
     algo : 0,
     isSorting : false,
-    speed : 500,
+    speed : 480,
     frames : []
   };
 

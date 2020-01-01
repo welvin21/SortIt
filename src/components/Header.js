@@ -48,9 +48,9 @@ class Header extends Component{
             value={arrSize}
             aria-labelledby="discrete-slider"
             valueLabelDisplay="auto"
-            step={5}
-            min={20}
-            max={80}
+            step={1}
+            min={10}
+            max={100}
             onChange={this.handleOnSliderChange}
           />
         </div>
