@@ -1,115 +1,56 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { changeSortingStatus, changeArr, changeFrames } from './redux/actions';
+import store from './redux/store';
 import './App.css';
 import Header from './components/Header';
-import algorithms from './algorithms/algorithms';
 
-class App extends Component{
-  state = {
-    arr : [],
-    arrSorted : [],
-    arrSize : 55,
-    algo : 0,
-    isSorting : false,
-    speed : 480,
-    frames : []
-  };
+const sort = async() => {
+  const state = store.getState();
+  let { arr, frames } = state;
+  if(frames.length > 0){
+    arr = frames.shift();
+    store.dispatch(changeArr(arr));
+    store.dispatch(changeFrames(frames));
+  }else{
+    store.dispatch(changeSortingStatus(false));
+  } 
+}
 
-  componentDidMount = () => {
-    const { arrSize } = this.state;
-    const arr = [...Array(arrSize).keys()].map(elem => elem+1);
-    const arrSorted = [...Array(arrSize).keys()].map(elem => elem+1);
-    this.setState({arr, arrSorted});
+const App = () => {
+  const arrSize = useSelector(state => state.arrSize);
+  const arr = useSelector(state => state.arr);
+  const speed = useSelector(state => state.speed);
+  const isSorting = useSelector(state => state.isSorting);
+
+  if(isSorting){
+    setTimeout(() => sort(), 1000-speed);
   }
 
-  onSliderChange = newArrSize => {
-    const arrSize = newArrSize;
-    const arr = [...Array(arrSize).keys()].map(elem => elem+1);
-    const arrSorted = [...Array(arrSize).keys()].map(elem => elem+1);
-    this.setState({arr, arrSorted, arrSize});
-  }
-
-  onSpeedChange = newSpeed => {
-    const speed = newSpeed;
-    this.setState({speed});
-  }
-
-  onSelectorChange = algo => {
-    this.setState({algo});
-  }
-
-  onShuffleClick = () => {
-    let { arr,arrSize } = this.state;
-    while (arrSize > 0) {
-        let index = Math.floor(Math.random() * arrSize);
-        arrSize--;
-
-        let temp = arr[arrSize];
-        arr[arrSize] = arr[index];
-        arr[index] = temp;
-    }
-
-    this.setState({arr});
-  }
-
-  onSortClick = () => {
-    let { arr, arrSorted, algo, isSorting } = this.state;
-    isSorting = !isSorting;
-    if(isSorting && (JSON.stringify(arr) !== JSON.stringify(arrSorted))){
-      algorithms[algo](arr).then(frames => this.setState({frames, isSorting}));
-    }
-    this.setState({ isSorting });
-  }
-
-  sort = () => {
-    let { arr, frames } = this.state;
-    if(frames.length > 0){
-      arr = frames.shift();
-      this.setState({arr, frames});
-    }else{
-      this.setState({isSorting: false});
-    }
-  }
-
-  render(){
-    const { arr, arrSize, algo, isSorting, speed } = this.state;
-    const data = {arrSize, algo, speed, isSorting};
-    const width = `${100/arrSize}%`;
-    const fontSize = `${40/arrSize}vw`;
-    
-    if(isSorting){
-      setTimeout(() => this.sort(), 1000-speed);
-    }
-
-    return(
-      <div className='app'>
-        <Header 
-          data={data}
-          onSliderChange={newArrSize => {this.onSliderChange(newArrSize)}}
-          onSpeedChange={newSpeed => {this.onSpeedChange(newSpeed)}}
-          onSelectorChange={newAlgo => {this.onSelectorChange(newAlgo)}}
-          onShuffleClick={() => {this.onShuffleClick()}}
-          onSortClick={() => {this.onSortClick()}}
-        />
-        <div className='main'>
-          {arr.map(elem => {
-            const height = `${(elem+1)/(arrSize+1) * 100}%`;
-            const backgroundColor = `hsl(${elem/arrSize * 360},100%,80%)`;
-            const style = {
-              height,
-              width,
-              fontSize,
-              backgroundColor
-            }
-            return(
-              <div key={elem} className='bar' style={style}>
-                <div className='bar-number'>{elem}</div>
-              </div>
-            );
-          })}
-        </div>
+  const width = `${100/arrSize}%`;
+  const fontSize = `${40/arrSize}vw`;
+  return(
+    <div className='app'>
+      <Header/>
+      <div className='main'>
+        {arr.map(elem => {
+          const height = `${(elem+1)/(arrSize+1) * 100}%`;
+          const backgroundColor = `hsl(${elem/arrSize * 360},100%,80%)`;
+          const style = {
+            height,
+            width,
+            fontSize,
+            backgroundColor
+          }
+          return(
+            <div key={elem} className='bar' style={style}>
+              <div className='bar-number'>{elem}</div>
+            </div>
+          );
+        })}
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default App;

@@ -35,7 +35,6 @@ const heapSort = async(arr) => {
     heap_root(frames, tmp, len, 0);
   }
 
-  console.log(frames.length);
   return frames;
 }
 
