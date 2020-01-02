@@ -38,6 +38,11 @@ button{
   color: #fff;
 }
 
+.grey-btn{
+  color: #000;
+  background: linear-gradient(#fff,#cfcfcf)
+}
+
 /* Main */
 .main{
   height: 100%;
