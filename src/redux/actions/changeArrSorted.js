@@ -1,6 +1,6 @@
 const changeArrSorted = arr => {
   return({
-    type: 'CHANGE_ARR_SORTED',
+    type: 'CHANGE_ARRAY_SORTED',
     payload: {arr}
   });
 }
