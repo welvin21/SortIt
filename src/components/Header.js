@@ -81,9 +81,9 @@ const Header = () => {
           value={speed}
           aria-labelledby="discrete-slider"
           valueLabelDisplay="off"
-          step={2}
+          step={5}
           min={500}
-          max={998}
+          max={980}
           onChange={(e,speed) => dispatch(changeSpeed(speed))}
         />
       </div>
@@ -93,7 +93,11 @@ const Header = () => {
         </Select>
       </div>
       <div>
-        <button disabled={isSorting ? true : false} style={{background: 'linear-gradient(#67C4FF,#0081D2)'}} onClick={() => handleOnShuffleClick(arr)}>
+        <button disabled={isSorting ? true : false} className='grey-btn' onClick={() => dispatch(changeArr([...[...arr].reverse()]))}>
+          Reverse
+        </button>
+        <div style={{padding: 1}}></div>
+        <button disabled={isSorting ? true : false} className='grey-btn' onClick={() => handleOnShuffleClick(arr)}>
           Shuffle
         </button>
       </div>
