@@ -5,6 +5,7 @@ import arr from './arr';
 import arrSorted from './arrSorted';
 import speed from './speed';
 import isSorting from './isSorting';
+import frames from './frames';
 
 const mainReducer = combineReducers({
   algo,
@@ -12,7 +13,8 @@ const mainReducer = combineReducers({
   arr,
   arrSorted,
   speed,
-  isSorting
+  isSorting,
+  frames
 })
 
 export default mainReducer;

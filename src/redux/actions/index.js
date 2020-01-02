@@ -3,7 +3,8 @@ import changeArrSize from './changeArrSize';
 import changeArr from './changeArr';
 import changeArrSorted from './changeArrSorted';
 import changeSpeed from './changeSpeed';
-import changeSortingStatus from './changeSortingStatus'
+import changeSortingStatus from './changeSortingStatus';
+import changeFrames from './changeFrames';
 
 export {
   changeAlgo,
@@ -11,6 +12,7 @@ export {
   changeArr,
   changeArrSorted,
   changeSpeed,
-  changeSortingStatus
+  changeSortingStatus,
+  changeFrames
 };
 

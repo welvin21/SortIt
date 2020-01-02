@@ -1,4 +1,4 @@
-const speed = (state = 480, action) => {
+const speed = (state = 749, action) => {
   switch(action.type){
     case 'CHANGE_SPEED':
       return (state = action.payload.speed);

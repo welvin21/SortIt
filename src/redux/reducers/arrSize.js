@@ -1,4 +1,4 @@
-const arrSize = (state = 55, action) => {
+const arrSize = (state = 80, action) => {
   switch(action.type){
     case('CHANGE_ARR_SIZE'):
       return (state = action.payload.arrSize);

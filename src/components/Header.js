@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { 
   changeSortingStatus, 
@@ -6,21 +6,12 @@ import {
   changeArrSize,
   changeAlgo, 
   changeSpeed,
-  changeArrSorted
+  changeArrSorted,
+  changeFrames
 } from '../redux/actions';
 import store from '../redux/store';
+import algorithms from '../algorithms/algorithms';
 import { Slider, Select, MenuItem } from '@material-ui/core';
-
-const algorithms = [
-  {name: 'Bubble Sort', key: 0},
-  {name: 'Insertion Sort', key: 1},
-  {name: 'Selection Sort', key: 2},
-  {name: 'Quick Sort', key: 3},
-  {name: 'Heap Sort', key: 4},
-  {name: 'Radix Sort', key: 5},
-  {name: 'Bucket Sort', key: 6},
-  {name: 'Shell Sort', key: 7},
-]
 
 const handleOnSizeChange = (event, arrSize) => {
   const arr = [...Array(arrSize).keys()].map(elem => elem+1);
@@ -44,6 +35,18 @@ const handleOnShuffleClick = arr => {
   store.dispatch(changeArr(tmp));
 }
 
+const handleOnSortClick = () => {
+  const state = store.getState();
+  let { arr, arrSorted, algo, isSorting } = state;
+  isSorting = !isSorting;
+  if(isSorting && (JSON.stringify(arr) !== JSON.stringify(arrSorted))){
+    algorithms[algo].method(arr).then(frames => {
+      store.dispatch(changeFrames(frames));
+      store.dispatch(changeSortingStatus(isSorting));
+    });
+  }
+  store.dispatch(changeSortingStatus(isSorting));
+}
 
 const Header = () => {
   const algo = useSelector(state => state.algo);
@@ -65,9 +68,9 @@ const Header = () => {
           value={arrSize}
           aria-labelledby="discrete-slider"
           valueLabelDisplay="auto"
-          step={1}
+          step={5}
           min={10}
-          max={100}
+          max={150}
           onChange={handleOnSizeChange}
         />
       </div>
@@ -78,9 +81,9 @@ const Header = () => {
           value={speed}
           aria-labelledby="discrete-slider"
           valueLabelDisplay="off"
-          step={10}
-          min={0}
-          max={950}
+          step={2}
+          min={500}
+          max={998}
           onChange={(e,speed) => dispatch(changeSpeed(speed))}
         />
       </div>
@@ -95,7 +98,7 @@ const Header = () => {
         </button>
       </div>
       <div>
-        <button style={{background: isSorting ? redBtn : greenBtn}} onClick={() => dispatch(changeSortingStatus())}>
+        <button style={{background: isSorting ? redBtn : greenBtn}} onClick={() => handleOnSortClick()}>
           {isSorting ? 'Stop' : 'Sort it!'}
         </button>
       </div>

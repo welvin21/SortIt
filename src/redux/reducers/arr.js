@@ -1,4 +1,4 @@
-const initialState = [...Array(55).keys()].map(num => num+1);
+const initialState = [...Array(80).keys()].map(num => num+1);
 const arr = (state = initialState, action) => {
   switch(action.type){
     case 'CHANGE_ARRAY':

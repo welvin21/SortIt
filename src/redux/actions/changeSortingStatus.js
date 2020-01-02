@@ -1,6 +1,7 @@
-const changeSortingStatus = () => {
+const changeSortingStatus = status => {
   return({
-    type: 'CHANGE_SORTING_STATUS'
+    type: {status} ? 'CHANGE_SORTING_STATUS' : 'FLIP_SORTING_STATUS',
+    payload: {status}
   });
 }
 
