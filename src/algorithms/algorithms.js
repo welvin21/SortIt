@@ -7,6 +7,7 @@ import heapSort from './heapSort';
 import radixSort from './radixSort';
 import bucketSort from './bucketSort';
 import shellSort from './shellSort';
+import cocktailSort from './cocktailSort';
 
 const algorithms = [
   {name: 'Bubble Sort', key: 0, method: bubbleSort},
@@ -18,6 +19,7 @@ const algorithms = [
   {name: 'Radix Sort', key: 6, method: radixSort},
   {name: 'Bucket Sort', key: 7, method: bucketSort},
   {name: 'Shell Sort', key: 8, method: shellSort},
+  {name: 'Cocktail Sort', key: 9, method: cocktailSort},
 ]
 
 export default algorithms;
