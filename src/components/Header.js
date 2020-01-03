@@ -62,6 +62,7 @@ const Header = () => {
   return(
     <div className='header'>
       <div className='slider'>
+        <p className='label'>Size</p>
         <Slider
           disabled={isSorting ? true : false}
           id='array_slider'
@@ -75,6 +76,7 @@ const Header = () => {
         />
       </div>
       <div className='slider'>
+        <p className='label'>Speed</p>
         <Slider
           disabled={isSorting ? true : false}
           id='speed_slider'
