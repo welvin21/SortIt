@@ -36,16 +36,8 @@ const App = () => {
         {arr.map(elem => {
           const height = `${(elem+1)/(arrSize+1) * 100}%`;
           const backgroundColor = `hsl(${elem/arrSize * 360},100%,80%)`;
-          const style = {
-            height,
-            width,
-            fontSize,
-            backgroundColor
-          }
           return(
-            <div key={elem} className='bar' style={style}>
-              <div className='bar-number'>{elem}</div>
-            </div>
+          <div key={elem} className='bar' style={{height, width, fontSize, backgroundColor}}></div>
           );
         })}
       </div>
