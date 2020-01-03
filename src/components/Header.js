@@ -15,7 +15,7 @@ import { Slider, Select, MenuItem } from '@material-ui/core';
 
 const handleOnSizeChange = (event, arrSize) => {
   const arr = [...Array(arrSize).keys()].map(elem => elem+1);
-  const arrSorted = [...Array(arrSize).keys()].map(elem => elem+1);
+  const arrSorted = [...arr];
   store.dispatch(changeArrSize(arrSize));
   store.dispatch(changeArr(arr));
   store.dispatch(changeArrSorted(arrSorted));
@@ -27,10 +27,7 @@ const handleOnShuffleClick = arr => {
   while (arrSize > 0) {
     let index = Math.floor(Math.random() * arrSize);
     arrSize--;
-
-    let temp = tmp[arrSize];
-    tmp[arrSize] = tmp[index];
-    tmp[index] = temp;
+    tmp[index] = tmp.splice(arrSize, 1, tmp[index])[0];
   }
   store.dispatch(changeArr(tmp));
 }
@@ -62,6 +59,7 @@ const Header = () => {
   return(
     <div className='header'>
       <div className='slider'>
+        <p className='label'>Size</p>
         <Slider
           disabled={isSorting ? true : false}
           id='array_slider'
@@ -75,6 +73,7 @@ const Header = () => {
         />
       </div>
       <div className='slider'>
+        <p className='label'>Speed</p>
         <Slider
           disabled={isSorting ? true : false}
           id='speed_slider'
