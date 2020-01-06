@@ -3,21 +3,21 @@
   text-align: center;
 }
 
-/* App */
-.app{
+/* Sort */
+.sort{
   height: 100vh;
   display: grid;
-  grid-template-rows: 10% 90%;
+  grid-template-rows: min-content;
 }
 
-/* Header */
-.header{
-  padding: 1%;
-  border: min(1px,1vw) solid #000;
+/* Toolbar */
+.toolbar{
+  padding: 2% 2% 1% 2%;
+  border-bottom: min(1px,1vw) solid #000;
 
   display: grid;
-  grid-template-columns: repeat(5,1fr);
-  grid-gap: 2%;
+  grid-template-columns: repeat(6,1fr);
+  grid-gap: 1%;
   align-items: flex-end;
 }
 
@@ -67,6 +67,12 @@ button{
 }
 
 @media (max-width : 560px){
+  .toolbar{
+    padding: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 20%;
+    column-gap: 2%;
+  }
   .label{
     font-size: 12px;
   }
