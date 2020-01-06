@@ -1,4 +1,4 @@
-import { filter, defaultYield } from './helperFunctions';
+import { filter, defaultYield, doneYield } from './helperFunctions';
 
 function *insertionSort(buckets){
   for(let a = 0; a<buckets.length; ++a){
@@ -51,6 +51,7 @@ export function *bucketSort(arr){
   yield* insertionSort(buckets);
 
   arrCopy = [...[ ].concat(...buckets)];
+  yield* doneYield(arrCopy);
   yield* defaultYield(arrCopy);
   return;
 }

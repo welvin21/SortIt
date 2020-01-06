@@ -1,4 +1,4 @@
-import { filter, defaultYield } from './helperFunctions';
+import { filter, defaultYield, doneYield } from './helperFunctions';
 
 export function *cocktailSort(arr){
   let arrCopy = [...arr];
@@ -46,6 +46,7 @@ export function *cocktailSort(arr){
     start+=1;
   }
 
+  yield* doneYield(arrCopy);
   yield* defaultYield(arrCopy);
   return;
 }

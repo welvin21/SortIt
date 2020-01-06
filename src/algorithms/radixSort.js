@@ -1,4 +1,4 @@
-import { filter, defaultYield } from "./helperFunctions";
+import { filter, defaultYield, doneYield } from './helperFunctions';
 
 const getPosition = (num, place) => {
   return  Math.floor(Math.abs(num)/Math.pow(10,place)) % 10;
@@ -24,6 +24,7 @@ export function *radixSort(arr){
       }
       yield* defaultYield(arrCopy);
   }
+  yield* doneYield(arrCopy);
   yield* defaultYield(arrCopy);
   return;
 }
