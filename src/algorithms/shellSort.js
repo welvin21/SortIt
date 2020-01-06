@@ -1,4 +1,4 @@
-import { filter, defaultYield } from './helperFunctions';
+import { filter, defaultYield, doneYield } from './helperFunctions';
 
 export function *shellSort(arr){
   let arrCopy = [...arr];
@@ -30,6 +30,7 @@ export function *shellSort(arr){
       step = parseInt(step*5 / 11);
     }
   }
+  yield* doneYield(arrCopy);
   yield* defaultYield(arrCopy);
   return;
 }

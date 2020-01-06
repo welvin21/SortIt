@@ -1,4 +1,4 @@
-import { filter, defaultYield } from './helperFunctions';
+import { filter, defaultYield, doneYield } from './helperFunctions';
 
 export function *bubbleSort(arr){
   let arrCopy = [...arr];
@@ -13,6 +13,7 @@ export function *bubbleSort(arr){
       }
     }
   }
+  yield* doneYield(arrCopy);
   yield* defaultYield(arrCopy);
   return;
 };

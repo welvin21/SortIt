@@ -1,4 +1,4 @@
-import { filter, defaultYield } from './helperFunctions';
+import { filter, defaultYield, doneYield } from './helperFunctions';
 
 export function *insertionSort(arr){
   let arrCopy = [...arr];
@@ -23,6 +23,7 @@ export function *insertionSort(arr){
       }
     }
   }
+  yield* doneYield(arrCopy);
   yield* defaultYield(arrCopy);
   return;
 };

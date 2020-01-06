@@ -1,4 +1,4 @@
-import { filter, defaultYield } from './helperFunctions';
+import { filter, defaultYield, doneYield } from './helperFunctions';
 
 function *heap_root(arr, len, i){
   var left = 2 * i + 1;
@@ -43,6 +43,7 @@ export function *heapSort(arr){
   
     yield* heap_root(arrCopy, len, 0);
   }
+  yield* doneYield(arrCopy);
   yield* defaultYield(arrCopy);
   return;
 }
