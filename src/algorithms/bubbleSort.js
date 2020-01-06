@@ -1,16 +1,18 @@
-const bubbleSort = async(arr) => {
-  let frames = [];
-  let tmp = [...arr];
-  let len = tmp.length;
+import { filter, defaultYield } from './helperFunctions';
+
+export function *bubbleSort(arr){
+  let arrCopy = [...arr];
+  let len = arrCopy.length;
   for(let i=0; i<len; ++i){
     for(let j=0; j<len-1-i; ++j){
-      if(tmp[j] > tmp[j+1]){
-        tmp[j] = tmp.splice(j+1, 1, tmp[j])[0];
-        frames.push([...tmp]);
+      if(arrCopy[j] > arrCopy[j+1]){
+        yield [...arrCopy].map(num => filter(num,[arrCopy[j], arrCopy[j+1]]));
+        arrCopy[j] = arrCopy.splice(j+1, 1, arrCopy[j])[0];
+        yield [...arrCopy].map(num => filter(num,[arrCopy[j], arrCopy[j+1]]));
+        yield* defaultYield(arrCopy);
       }
     }
   }
-  return frames;
+  yield* defaultYield(arrCopy);
+  return;
 };
-
-export default bubbleSort;

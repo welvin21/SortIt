@@ -1,25 +1,28 @@
-const insertionSort = async(arr) => {
-  let frames = [];
-  let tmp = [...arr];
-  let len = tmp.length;
+import { filter, defaultYield } from './helperFunctions';
+
+export function *insertionSort(arr){
+  let arrCopy = [...arr];
+  let len = arrCopy.length;
   for (let i = 1; i < len; i++){
-    if (tmp[i] < tmp[0]) {
-      tmp.unshift(tmp.splice(i,1)[0]);
-      frames.push([...tmp]);
+    if (arrCopy[i] < arrCopy[0]) {
+      yield [...arrCopy].map(num => filter(num,[arrCopy[0], arrCopy[i]]));
+      arrCopy.unshift(arrCopy.splice(i,1)[0]);
+      yield* defaultYield(arrCopy);
     } 
-    else if (tmp[i] > tmp[i-1]){
+    else if (arrCopy[i] > arrCopy[i-1]){
       continue;
     } 
     else {
       for (let j = 1; j < i; j++) {
-        if (tmp[i] > tmp[j-1] && tmp[i] < tmp[j]){
-          tmp.splice(j,0,tmp.splice(i,1)[0]);
-          frames.push([...tmp]);
+        if (arrCopy[i] > arrCopy[j-1] && arrCopy[i] < arrCopy[j]){
+          yield [...arrCopy].map(num => filter(num,[arrCopy[j], arrCopy[j+1]]));
+          arrCopy.splice(j,0,arrCopy.splice(i,1)[0]);
+          yield [...arrCopy].map(num => filter(num,[...arrCopy.slice(j+1,j+3)]));
+          yield* defaultYield(arrCopy);
         }
       }
     }
   }
-  return frames;
+  yield* defaultYield(arrCopy);
+  return;
 };
-
-export default insertionSort;

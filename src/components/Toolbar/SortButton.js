@@ -5,14 +5,13 @@ import { changeSortingStatus, changeFrames } from '../../redux/actions';
 const handleOnSortClick = algorithms => {
   const state = store.getState();
   let { arr, arrSorted, algo, isSorting } = state;
-  isSorting = !isSorting;
-  if(isSorting && (JSON.stringify(arr) !== JSON.stringify(arrSorted))){
-    algorithms[algo].method(arr).then(frames => {
-      store.dispatch(changeFrames(frames));
-      store.dispatch(changeSortingStatus(isSorting));
-    });
+  if(!isSorting && (JSON.stringify(arr) !== JSON.stringify(arrSorted))){
+    const frames = algorithms[algo].method(arr.map(elem => elem.num));
+    store.dispatch(changeFrames(frames));
+    store.dispatch(changeSortingStatus(true));
+  }else{
+    store.dispatch(changeSortingStatus(false));
   }
-  store.dispatch(changeSortingStatus(isSorting));
 }
 
 const greenBtn = 'linear-gradient(#63FF5E,#07D800)';

@@ -1,7 +1,8 @@
-const cocktailSort = async(arr) => {
-  let frames = [];
-  let tmp = [...arr];
-  let len = tmp.length;
+import { filter, defaultYield } from './helperFunctions';
+
+export function *cocktailSort(arr){
+  let arrCopy = [...arr];
+  let len = arrCopy.length;
 
   let start = 0, end = len-1;
   let swapped = true;
@@ -9,9 +10,15 @@ const cocktailSort = async(arr) => {
   while(swapped){
     swapped = false;
     for(let i = start; i < end; ++i){
-      if(tmp[i] > tmp[i+1]){
-        tmp[i] = tmp.splice(i+1, 1, tmp[i])[0];
-        frames.push([...tmp]);
+      if(arrCopy[i] > arrCopy[i+1]){
+        let elem = arrCopy[i], elem2 = arrCopy[i+1];
+        yield [...arrCopy].map(num => filter(num, [elem, elem2]));
+        
+        arrCopy[i] = arrCopy.splice(i+1, 1, arrCopy[i])[0];
+        elem = arrCopy[i]
+        elem2 = arrCopy[i+1];
+        yield [...arrCopy].map(num => filter(num, [elem, elem2]));
+        yield* defaultYield(arrCopy);
         swapped = true;
       }
     }
@@ -23,9 +30,15 @@ const cocktailSort = async(arr) => {
     swapped = false;
     end-=1;
     for(let i = end-1; i >= start; --i){
-      if(tmp[i] > tmp[i+1]){
-        tmp[i] = tmp.splice(i+1, 1, tmp[i])[0];
-        frames.push([...tmp]);
+      if(arrCopy[i] > arrCopy[i+1]){
+        let elem = arrCopy[i], elem2 = arrCopy[i+1];
+        yield [...arrCopy].map(num => filter(num, [elem, elem2]));
+        
+        arrCopy[i] = arrCopy.splice(i+1, 1, arrCopy[i])[0];
+        elem = arrCopy[i]
+        elem2 = arrCopy[i+1];
+        yield [...arrCopy].map(num => filter(num, [elem, elem2]));
+        yield* defaultYield(arrCopy);
         swapped = true;
       }
     }
@@ -33,7 +46,6 @@ const cocktailSort = async(arr) => {
     start+=1;
   }
 
-  return frames;
+  yield* defaultYield(arrCopy);
+  return;
 }
-
-export default cocktailSort;

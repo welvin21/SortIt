@@ -1,20 +1,22 @@
-const selectionSort = async(arr) => {
-  let frames = [];
-  let tmp = [...arr];
-  let len = tmp.length;
+import { filter, defaultYield } from './helperFunctions';
+
+export function *selectionSort(arr){
+  let arrCopy = [...arr];
+  let len = arrCopy.length;
   for (let i = 0; i < len - 1; ++i) {
-    var j_min = i;
+    let j_min = i;
     for (let j = i + 1; j < len; ++j) {
-        if (tmp[j] < tmp[j_min]) {
+        if (arrCopy[j] < arrCopy[j_min]) {
             j_min = j;
         }
     }
     if (j_min !== i) {
-      tmp[j_min] = tmp.splice(i, 1, tmp[j_min])[0];
-      frames.push([...tmp]);
+      yield [...arrCopy].map(num => filter(num,[arrCopy[j_min], arrCopy[i]]));
+      arrCopy[j_min] = arrCopy.splice(i, 1, arrCopy[j_min])[0];
+      yield [...arrCopy].map(num => filter(num,[arrCopy[j_min], arrCopy[i]]));
+      yield* defaultYield(arrCopy);
     }
   }
-  return frames;
+  yield* defaultYield(arrCopy);
+  return;
 };
-
-export default selectionSort;

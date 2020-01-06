@@ -4,8 +4,8 @@ import store from '../../redux/store';
 import { changeArrSize, changeArr, changeArrSorted } from '../../redux/actions';
 
 const handleOnSizeChange = (event, arrSize) => {
-  const arr = [...Array(arrSize).keys()].map(elem => elem+1);
-  const arrSorted = [...arr];
+  const arr = [...Array(arrSize).keys()].map(elem => elem+1).map(num => ({num, isCompared: false}));
+  const arrSorted = [...arr].map(num => ({num, isCompared: false}));
   store.dispatch(changeArrSize(arrSize));
   store.dispatch(changeArr(arr));
   store.dispatch(changeArrSorted(arrSorted));
