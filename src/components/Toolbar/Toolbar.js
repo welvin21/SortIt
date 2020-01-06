@@ -5,7 +5,7 @@ import { SpeedSlider } from './SpeedSlider';
 import { AlgoSelector } from './AlgoSelector';
 import { ReverseButton, ShuffleButton } from './ArrayModifier';
 import { SortButton } from './SortButton';
-import algorithms from '../../algorithms/algorithms';
+import { algorithms } from '../../algorithms';
 
 export const Toolbar = () => {
   const algo = useSelector(state => state.algo);

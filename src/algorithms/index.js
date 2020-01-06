@@ -1,15 +1,15 @@
-import bubbleSort from './bubbleSort';
-import insertionSort from './insertionSort';
-import selectionSort from './selectionSort';
-import quickSort from './quickSort';
-import mergeSort from './mergeSort';
-import heapSort from './heapSort';
-import radixSort from './radixSort';
-import bucketSort from './bucketSort';
-import shellSort from './shellSort';
-import cocktailSort from './cocktailSort';
+import { bubbleSort } from './bubbleSort';
+import { insertionSort } from './insertionSort';
+import { selectionSort } from './selectionSort';
+import { quickSort } from './quickSort';
+import { mergeSort } from './mergeSort';
+import { heapSort } from './heapSort';
+import { radixSort } from './radixSort';
+import { bucketSort } from './bucketSort';
+import { shellSort } from './shellSort';
+import { cocktailSort } from './cocktailSort';
 
-const algorithms = [
+export const algorithms = [
   {name: 'Bubble Sort', key: 0, method: bubbleSort},
   {name: 'Insertion Sort', key: 1, method: insertionSort},
   {name: 'Selection Sort', key: 2, method: selectionSort},
@@ -21,5 +21,3 @@ const algorithms = [
   {name: 'Shell Sort', key: 8, method: shellSort},
   {name: 'Cocktail Sort', key: 9, method: cocktailSort},
 ]
-
-export default algorithms;
