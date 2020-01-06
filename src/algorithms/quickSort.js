@@ -1,4 +1,4 @@
-import { filter, defaultYield } from './helperFunctions';
+import { filter, defaultYield, doneYield } from './helperFunctions';
 
 function *partition(arr, left, right){
   let pivot   = arr[Math.floor((right + left) / 2)],
@@ -42,6 +42,7 @@ export function *quickSort(arr){
   let arrCopy = [...arr];
   let len = arrCopy.length;
   yield* main(arrCopy, len, 0, len-1);
+  yield* doneYield(arrCopy);
   yield* defaultYield(arrCopy);
   return;
 };

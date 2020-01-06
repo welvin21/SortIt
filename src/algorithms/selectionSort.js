@@ -1,4 +1,4 @@
-import { filter, defaultYield } from './helperFunctions';
+import { filter, defaultYield, doneYield } from './helperFunctions';
 
 export function *selectionSort(arr){
   let arrCopy = [...arr];
@@ -17,6 +17,7 @@ export function *selectionSort(arr){
       yield* defaultYield(arrCopy);
     }
   }
+  yield* doneYield(arrCopy);
   yield* defaultYield(arrCopy);
   return;
 };

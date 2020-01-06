@@ -1,4 +1,4 @@
-import { filter, defaultYield } from './helperFunctions';
+import { filter, defaultYield, doneYield } from './helperFunctions';
 
 function *merge(arr, start, mid, end){ 
   let start2 = mid + 1; 
@@ -43,6 +43,7 @@ export function *mergeSort(arr){
   let arrCopy = [...arr];
   let len = arrCopy.length;
   yield* main(arrCopy, 0, len-1);
+  yield* doneYield(arrCopy);
   yield* defaultYield(arrCopy);
   return;
 };

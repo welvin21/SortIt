@@ -8,7 +8,6 @@ const sort = async() => {
   const { frames } = state;
   const frame = frames.next();
   if(!frame.done){
-    // console.log(performance.memory);
     store.dispatch(changeArr(frame.value));
   }else{
     store.dispatch(changeSortingStatus(false));
@@ -25,16 +24,14 @@ export const Main = () => {
     setTimeout(() => sort(), 1000-speed);
   }
 
-  console.log('a')
-
   const width = `${100/arrSize}%`;
   const fontSize = `${40/arrSize}vw`;
   return(
     <div className='main'>
       {arr.map(elem => {
-        const { num, isCompared } = elem;
+        const { num, color } = elem;
         const height = `${(num+1)/(arrSize+1) * 100}%`;
-        const backgroundColor = (isCompared && isSorting) ? '#FF0000' : `hsl(${num/arrSize * 360},100%,80%)`;
+        const backgroundColor = (isSorting && color) ? color : `hsl(${num/arrSize * 360},100%,80%)`;
         return(
           <div key={num} className='bar' style={{height, width, fontSize, backgroundColor}}></div>
         );
