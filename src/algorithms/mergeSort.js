@@ -1,22 +1,28 @@
-const merge = (frames, arr, start, mid, end) => { 
+import { filter, defaultYield } from './helperFunctions';
+
+function *merge(arr, start, mid, end){ 
   let start2 = mid + 1; 
   if (arr[mid] <= arr[start2]) { 
     return; 
   } 
 
   while (start <= mid && start2 <= end) { 
+    const elem = arr[start], elem2 = arr[start2];
+    yield [...arr].map(num => filter(num,[elem, elem2]));
     if (arr[start] <= arr[start2]) { 
       start++; 
     } 
     else { 
       let value = arr[start2]; 
-      let index = start2; 
-      while (index !== start) { 
-        arr[index] = arr[index - 1]; 
-        index--; 
+      let i = start2; 
+      while (i !== start) { 
+        arr[i] = arr[i - 1]; 
+        i--; 
       } 
       arr[start] = value; 
-      frames.push([...arr]);
+      const elem = arr[start], elem2 = arr[start2];
+      yield [...arr].map(num => filter(num,[elem, elem2]));
+      yield* defaultYield(arr);
       start++; 
       mid++; 
       start2++; 
@@ -24,22 +30,19 @@ const merge = (frames, arr, start, mid, end) => {
   } 
 }
 
-const main = async(frames, arr, l, r) => { 
+function *main(arr, l, r){ 
   if(l < r){ 
     let m = l + Math.floor((r - l) / 2);
-    main(frames, arr, l, m); 
-    main(frames, arr, m + 1, r); 
-    merge(frames, arr, l, m, r); 
-  } 
+    yield* main(arr, l, m); 
+    yield* main(arr, m + 1, r); 
+    yield* merge(arr, l, m, r); 
+  }
 } 
 
-const mergeSort = async(arr) => {
-  let frames = [];
-  let tmp = [...arr];
-  let len = tmp.length;
-  
-  main(frames, tmp, 0, len-1).then(() => {});
-  return frames;
+export function *mergeSort(arr){
+  let arrCopy = [...arr];
+  let len = arrCopy.length;
+  yield* main(arrCopy, 0, len-1);
+  yield* defaultYield(arrCopy);
+  return;
 };
-
-export default mergeSort;
