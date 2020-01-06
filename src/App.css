@@ -16,8 +16,8 @@
   border-bottom: min(1px,1vw) solid #000;
 
   display: grid;
-  grid-template-columns: repeat(5,1fr);
-  grid-gap: 2%;
+  grid-template-columns: repeat(6,1fr);
+  grid-gap: 1%;
   align-items: flex-end;
 }
 
@@ -68,7 +68,10 @@ button{
 
 @media (max-width : 560px){
   .toolbar{
-    padding: 10px;
+    padding: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 20%;
+    column-gap: 2%;
   }
   .label{
     font-size: 12px;

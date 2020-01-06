@@ -14,18 +14,21 @@ const handleOnShuffleClick = arr => {
   store.dispatch(changeArr(tmp));
 }
 
-export const ArrayModifier = props => {
+export const ShuffleButton = props => {
+  const { arr, isSorting } = props;
+  return(
+    <button disabled={isSorting ? true : false} className='grey-btn' onClick={() => handleOnShuffleClick(arr)}>
+      Shuffle
+    </button>
+  );
+}
+
+export const ReverseButton = props => {
   const dispatch = useDispatch();
   const { arr, isSorting } = props;
   return(
-    <div>
-      <button disabled={isSorting ? true : false} className='grey-btn' onClick={() => dispatch(changeArr([...[...arr].reverse()]))}>
-        Reverse
-      </button>
-      <div style={{padding: 1}}></div>
-      <button disabled={isSorting ? true : false} className='grey-btn' onClick={() => handleOnShuffleClick(arr)}>
-        Shuffle
-      </button>
-    </div>
+    <button disabled={isSorting ? true : false} className='grey-btn' onClick={() => dispatch(changeArr([...[...arr].reverse()]))}>
+      Reverse
+    </button>
   );
 }

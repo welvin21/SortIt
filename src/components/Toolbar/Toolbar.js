@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { SizeSlider } from './SizeSlider';
 import { SpeedSlider } from './SpeedSlider';
 import { AlgoSelector } from './AlgoSelector';
-import { ArrayModifier } from './ArrayModifier';
+import { ReverseButton, ShuffleButton } from './ArrayModifier';
 import { SortButton } from './SortButton';
 import algorithms from '../../algorithms/algorithms';
 
@@ -19,7 +19,8 @@ export const Toolbar = () => {
       <SizeSlider arrSize={arrSize} isSorting={isSorting}/>
       <SpeedSlider speed={speed} isSorting={isSorting}/>
       <AlgoSelector algorithms={algorithms} algo={algo} isSorting={isSorting}/>
-      <ArrayModifier arr={arr} isSorting={isSorting}/>
+      <ReverseButton arr={arr} isSorting={isSorting}/>
+      <ShuffleButton arr={arr} isSorting={isSorting}/>
       <SortButton algorithms={algorithms} isSorting={isSorting}/>
     </div>
   );
