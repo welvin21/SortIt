@@ -1,4 +1,9 @@
-import { filter, defaultYield, doneYield } from './helperFunctions';
+import { defaultYield, doneYield, swapYield } from './helperFunctions';
+
+function *selectionYield(arr, filteArr, color){
+  yield [...arr].map(num => ({num, color : filteArr.includes(num) ? color : null}));
+  return;
+}
 
 export function *selectionSort(arr){
   let arrCopy = [...arr];
@@ -6,15 +11,14 @@ export function *selectionSort(arr){
   for (let i = 0; i < len - 1; ++i) {
     let j_min = i;
     for (let j = i + 1; j < len; ++j) {
+      yield* selectionYield(arrCopy, [arrCopy[j_min]], '#0000FF');
+      yield* selectionYield(arrCopy, [arrCopy[j_min], arrCopy[j]], '#FF0000');
         if (arrCopy[j] < arrCopy[j_min]) {
             j_min = j;
         }
     }
     if (j_min !== i) {
-      yield [...arrCopy].map(num => filter(num,[arrCopy[j_min], arrCopy[i]]));
-      arrCopy[j_min] = arrCopy.splice(i, 1, arrCopy[j_min])[0];
-      yield [...arrCopy].map(num => filter(num,[arrCopy[j_min], arrCopy[i]]));
-      yield* defaultYield(arrCopy);
+      yield* swapYield(arrCopy, j_min, i);
     }
   }
   yield* doneYield(arrCopy);
