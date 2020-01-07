@@ -1,5 +1,10 @@
 import { filter, defaultYield, doneYield } from './helperFunctions';
 
+function *compareYield(arr, i, j){
+  yield [...arr].map(num => filter(num, [arr[i], arr[j]]));
+  return;
+}
+
 function *merge(arr, start, mid, end){ 
   let start2 = mid + 1; 
   if (arr[mid] <= arr[start2]) { 
@@ -7,8 +12,7 @@ function *merge(arr, start, mid, end){
   } 
 
   while (start <= mid && start2 <= end) { 
-    const elem = arr[start], elem2 = arr[start2];
-    yield [...arr].map(num => filter(num,[elem, elem2]));
+    yield* compareYield(arr, start, start2);
     if (arr[start] <= arr[start2]) { 
       start++; 
     } 
@@ -20,8 +24,7 @@ function *merge(arr, start, mid, end){
         i--; 
       } 
       arr[start] = value; 
-      const elem = arr[start], elem2 = arr[start2];
-      yield [...arr].map(num => filter(num,[elem, elem2]));
+      yield* compareYield(arr, start, start+1);
       yield* defaultYield(arr);
       start++; 
       mid++; 

@@ -1,4 +1,12 @@
-import { filter, defaultYield, doneYield } from './helperFunctions';
+import { defaultYield, doneYield } from './helperFunctions';
+
+function *swapYieldQuick(arr, i, j, pivot){
+  yield [...arr].map(num => ({num, color: num === pivot ? '#0000FF' : (num === arr[i] || num === arr[j]) ? '#FF0000' : null}));
+  arr[i] = arr.splice(j, 1, arr[i])[0];
+  yield [...arr].map(num => ({num, color: num === pivot ? '#0000FF' : (num === arr[i] || num === arr[j]) ? '#FF0000' : null}));
+  yield [...arr].map(num => ({num, color: num === pivot ? '#0000FF' : null}));
+  return;
+}
 
 function *partition(arr, left, right){
   let pivot   = arr[Math.floor((right + left) / 2)],
@@ -12,13 +20,7 @@ function *partition(arr, left, right){
       j--;
     }
     if(i <= j) {
-      let elem = arr[i], elem2 = arr[j];
-      yield [...arr].map(num => filter(num, [elem, elem2, pivot]));
-      arr[j] = arr.splice(i, 1, arr[j])[0];
-      elem = arr[i];
-      elem2 = arr[j];
-      yield [...arr].map(num => filter(num, [elem, elem2, pivot]));
-      yield [...arr].map(num => filter(num, [pivot]));
+      yield* swapYieldQuick(arr, i, j, pivot);
       i++;
       j--;
     }

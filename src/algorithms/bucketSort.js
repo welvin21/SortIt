@@ -1,16 +1,24 @@
 import { filter, defaultYield, doneYield } from './helperFunctions';
 
+function *swapYieldBucket(buckets, pos, i, j){
+  let arr = buckets[pos];
+  yield [...[].concat(...buckets)].map(num => filter(num, [arr[i], arr[j]]));
+  arr.splice(i,0,arr.splice(j,1)[0]);
+  buckets[pos] = arr;
+  yield [...[].concat(...buckets)].map(num => filter(num, [arr[i], arr[j]]));
+  yield* defaultYield([...[].concat(...buckets)]);
+  return;
+}
+
 function *insertionSort(buckets){
   for(let a = 0; a<buckets.length; ++a){
     let arr = buckets[a];
     const len = arr.length;
     for (let i = 1; i < len; i++){
       if (arr[i] < arr[0]) {
-        yield [...[ ].concat(...buckets)].map(num => filter(num,[arr[0], arr[i]]));
-
-        arr.unshift(arr.splice(i,1)[0]);
-        buckets[a] = arr;
-        yield* defaultYield([ ].concat(...buckets));
+        for(let k = i; k > 0; --k){
+          yield* swapYieldBucket(buckets, a, k, k-1);
+        }
       } 
       else if (arr[i] > arr[i-1]){
         continue;
@@ -18,12 +26,9 @@ function *insertionSort(buckets){
       else {
         for (let j = 1; j < i; j++) {
           if (arr[i] > arr[j-1] && arr[i] < arr[j]){
-            yield [...[ ].concat(...buckets)].map(num => filter(num,[...arr.slice(j,j+2)]));
-            
-            arr.splice(j,0,arr.splice(i,1)[0]);
-            buckets[a] = arr;
-            yield [...[ ].concat(...buckets)].map(num => filter(num,[...arr.slice(j+1,j+3)]));
-            yield* defaultYield([ ].concat(...buckets));
+            for(let k = i; k > j; --k){
+              yield* swapYieldBucket(buckets, a, k, k-1);
+            }
           }
         }
       }

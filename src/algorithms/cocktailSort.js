@@ -1,4 +1,4 @@
-import { filter, defaultYield, doneYield } from './helperFunctions';
+import { defaultYield, doneYield, swapYield } from './helperFunctions';
 
 export function *cocktailSort(arr){
   let arrCopy = [...arr];
@@ -11,14 +11,7 @@ export function *cocktailSort(arr){
     swapped = false;
     for(let i = start; i < end; ++i){
       if(arrCopy[i] > arrCopy[i+1]){
-        let elem = arrCopy[i], elem2 = arrCopy[i+1];
-        yield [...arrCopy].map(num => filter(num, [elem, elem2]));
-        
-        arrCopy[i] = arrCopy.splice(i+1, 1, arrCopy[i])[0];
-        elem = arrCopy[i]
-        elem2 = arrCopy[i+1];
-        yield [...arrCopy].map(num => filter(num, [elem, elem2]));
-        yield* defaultYield(arrCopy);
+        yield* swapYield(arrCopy, i, i+1);
         swapped = true;
       }
     }
@@ -31,14 +24,7 @@ export function *cocktailSort(arr){
     end-=1;
     for(let i = end-1; i >= start; --i){
       if(arrCopy[i] > arrCopy[i+1]){
-        let elem = arrCopy[i], elem2 = arrCopy[i+1];
-        yield [...arrCopy].map(num => filter(num, [elem, elem2]));
-        
-        arrCopy[i] = arrCopy.splice(i+1, 1, arrCopy[i])[0];
-        elem = arrCopy[i]
-        elem2 = arrCopy[i+1];
-        yield [...arrCopy].map(num => filter(num, [elem, elem2]));
-        yield* defaultYield(arrCopy);
+        yield* swapYield(arrCopy, i, i+1);
         swapped = true;
       }
     }

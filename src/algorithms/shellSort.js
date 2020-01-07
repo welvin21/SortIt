@@ -1,4 +1,4 @@
-import { filter, defaultYield, doneYield } from './helperFunctions';
+import { defaultYield, doneYield, swapYield } from './helperFunctions';
 
 export function *shellSort(arr){
   let arrCopy = [...arr];
@@ -11,14 +11,7 @@ export function *shellSort(arr){
       let temp = arrCopy[i];
 
       while(j >= step && arrCopy[j-step] > temp) {
-        let elem = arrCopy[j-step], elem2 = arrCopy[j];
-        yield [...arrCopy].map(num => filter(num, [elem, elem2]));
-        
-        arrCopy[j] = arrCopy.splice(j-step, 1, arrCopy[j])[0];
-        elem = arrCopy[j-step]
-        elem2 = arrCopy[j];
-        yield [...arrCopy].map(num => filter(num, [elem, elem2]));
-        yield* defaultYield(arrCopy);
+        yield* swapYield(arrCopy, j-step, j);
         j -= step;
       }
       arrCopy[j] = temp;

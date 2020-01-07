@@ -16,3 +16,11 @@ export function *doneYield(arr){
   }
   return;
 }
+
+export function *swapYield(arr, i, j){
+  yield [...arr].map(num => filter(num,[arr[i], arr[j]]));
+  arr[i] = arr.splice(j, 1, arr[i])[0];
+  yield [...arr].map(num => filter(num,[arr[i], arr[j]]));
+  yield* defaultYield(arr);
+  return;
+}
