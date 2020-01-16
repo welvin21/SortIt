@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
-import algo from './algo';
-import arrSize from './arrSize';
-import arr from './arr';
-import arrSorted from './arrSorted';
-import speed from './speed';
-import isSorting from './isSorting';
-import frames from './frames';
+import { algo } from './algo';
+import { arrSize } from './arrSize';
+import { arr } from './arr';
+import { arrSorted } from './arrSorted';
+import { speed } from './speed';
+import { isSorting } from './isSorting';
+import { frames } from './frames';
 
-const mainReducer = combineReducers({
+export const mainReducer = combineReducers({
   algo,
   arrSize,
   arr,
@@ -15,6 +15,4 @@ const mainReducer = combineReducers({
   speed,
   isSorting,
   frames
-})
-
-export default mainReducer;
+});

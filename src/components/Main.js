@@ -1,11 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { changeSortingStatus, changeArr } from '../redux/actions';
-import store from '../redux/store';
+import { store } from '../redux/store';
 
 const sort = async() => {
-  const state = store.getState();
-  const { frames } = state;
+  const { frames } = store.getState();
   const frame = frames.next();
   if(!frame.done){
     store.dispatch(changeArr(frame.value));
@@ -25,7 +24,6 @@ export const Main = () => {
   }
 
   const width = `${100/arrSize}%`;
-  const fontSize = `${40/arrSize}vw`;
   return(
     <div className='main'>
       {arr.map(elem => {
@@ -33,7 +31,7 @@ export const Main = () => {
         const height = `${(num+1)/(arrSize+1) * 100}%`;
         const backgroundColor = (isSorting && color) ? color : `hsl(${num/arrSize * 360},100%,80%)`;
         return(
-          <div key={num} className='bar' style={{height, width, fontSize, backgroundColor}}></div>
+          <div key={num} className='bar' style={{height, width, backgroundColor}}></div>
         );
       })}
     </div>

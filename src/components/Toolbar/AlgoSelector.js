@@ -3,9 +3,8 @@ import { Select, MenuItem } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { changeAlgo } from '../../redux/actions';
 
-export const AlgoSelector = props => {
+export const AlgoSelector = ({ algorithms, algo, isSorting }) => {
   const dispatch = useDispatch();
-  const { algorithms, algo, isSorting } = props; 
   return(
     <div className='selector'>
       <Select disabled={isSorting ? true : false} id='algo_selector' value={algo} onChange={e => dispatch(changeAlgo(e.target.value))}>

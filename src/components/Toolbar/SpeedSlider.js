@@ -3,9 +3,8 @@ import { useDispatch } from 'react-redux';
 import { Slider } from '@material-ui/core';
 import { changeSpeed } from '../../redux/actions';
 
-export const SpeedSlider = props => {
+export const SpeedSlider = ({ speed, isSorting }) => {
   const dispatch = useDispatch();
-  const { speed, isSorting } = props;
   return(
     <div className='slider'>
       <p className='label'>Speed</p>
