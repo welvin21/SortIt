@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {Modal, Button, Typography } from '@material-ui/core';
+import { Modal, Button, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -27,9 +27,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const Intro = props => {
+export const Intro = ({ isOpen, closeModal }) => {
   const classes = useStyles();
-  const { isOpen, closeModal } = props;
   const githubRepo = 'https://github.com/welvin21/SortIt';
   const description = `Sorting is one of the most common problems not only in computer science but also in our daily life.
                       The purpose of this project is to assist anyone who wants to gain thorough understanding of different sorting methods.
@@ -41,6 +40,7 @@ export const Intro = props => {
       aria-describedby="simple-modal-description"
       open={isOpen}
       onClose={() => {}}
+      disableScrollLock={true}
     >
       <div className={classes.paper}>
         <Typography className={classes.description} variant='body1' id="simple-modal-description">

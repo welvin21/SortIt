@@ -1,4 +1,4 @@
-const isSorting = (state = false, action) => {
+export const isSorting = (state = false, action) => {
   switch(action.type){
     case 'CHANGE_SORTING_STATUS':
       return( state = action.payload.status);
@@ -7,6 +7,4 @@ const isSorting = (state = false, action) => {
     default: 
       return state;
   }
-}
-
-export default isSorting;
+};

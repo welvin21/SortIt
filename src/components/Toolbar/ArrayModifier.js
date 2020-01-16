@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch }  from 'react-redux';
-import store from '../../redux/store';
+import { store } from '../../redux/store';
 import { changeArr } from '../../redux/actions';
 
 const handleOnShuffleClick = arr => {
@@ -14,8 +14,7 @@ const handleOnShuffleClick = arr => {
   store.dispatch(changeArr(tmp));
 }
 
-export const ShuffleButton = props => {
-  const { arr, isSorting } = props;
+export const ShuffleButton = ({ arr, isSorting }) => {
   return(
     <button disabled={isSorting ? true : false} className='grey-btn' onClick={() => handleOnShuffleClick(arr)}>
       Shuffle
@@ -23,9 +22,8 @@ export const ShuffleButton = props => {
   );
 }
 
-export const ReverseButton = props => {
+export const ReverseButton = ({ arr, isSorting }) => {
   const dispatch = useDispatch();
-  const { arr, isSorting } = props;
   return(
     <button disabled={isSorting ? true : false} className='grey-btn' onClick={() => dispatch(changeArr([...[...arr].reverse()]))}>
       Reverse

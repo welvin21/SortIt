@@ -1,6 +1,6 @@
 import React from 'react';
 import { Slider } from '@material-ui/core';
-import store from '../../redux/store';
+import { store } from '../../redux/store';
 import { changeArrSize, changeArr, changeArrSorted } from '../../redux/actions';
 
 const handleOnSizeChange = (event, arrSize) => {
@@ -11,8 +11,7 @@ const handleOnSizeChange = (event, arrSize) => {
   store.dispatch(changeArrSorted(arrSorted));
 }
 
-export const SizeSlider = props => {
-  const { arrSize, isSorting } = props;
+export const SizeSlider = ({ arrSize, isSorting }) => {
   return(
     <div className='slider'>
       <p className='label'>Size</p>
