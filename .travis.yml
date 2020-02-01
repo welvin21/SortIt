@@ -1,23 +1,26 @@
 language: node_js
 node_js:
   - 'stable'
+install:
+  - npm install -g yarn
 cache: 
- directories:
-  - node_modules
+  yarn: true
+  directories:
+    - node_modules
 jobs:
   include: 
     - stage: test
       install: 
-        - npm install
+        - yarn
       script:
         - echo "Test react-app"
-        - npm test
+        - yarn test
     - stage: deployment
       install: 
-        - npm install
+        - yarn
       script:
         - echo "Deploy to gh-pages"
-        - npm run build
+        - yarn run build
       deploy: 
         provider: pages
         skip_cleanup: true
