@@ -1,0 +1,40 @@
+language: node_js
+node_js:
+  - 'stable'
+install:
+  - npm install -g yarn
+cache: 
+  yarn: true
+  directories:
+    - node_modules
+jobs:
+  include: 
+    - stage: test
+      install: 
+        - yarn
+      script:
+        - echo "Test react-app"
+        - yarn test
+    - stage: deployment
+      install: 
+        - yarn
+      script:
+        - echo "Deploy to gh-pages"
+        - yarn run build
+      deploy: 
+        provider: pages
+        skip_cleanup: true
+        github_token: $GITHUB_TOKEN
+        local_dir: ./build
+        keep_history: true
+        on:
+          all_branches: true
+          condition: $TRAVIS_BRANCH =~ ^(master)$
+    - stage: test-deployment
+      script: 
+        - echo "Test deployment"
+        - curl https://sort.welvin21.com
+notifications:
+  email:
+    on_success: never
+    on_failure: always
