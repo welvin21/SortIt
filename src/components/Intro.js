@@ -34,7 +34,7 @@ export const Intro = ({ isOpen, closeModal }) => {
                       The purpose of this project is to assist anyone who wants to gain thorough understanding of different sorting methods.
                       There are 10 different sorting algorithms for you to try by clicking the playground button below.
                       `;
-  return(
+  return (
     <Modal
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
@@ -43,14 +43,30 @@ export const Intro = ({ isOpen, closeModal }) => {
       disableScrollLock={true}
     >
       <div className={classes.paper}>
-        <Typography className={classes.description} variant='body1' id="simple-modal-description">
+        <Typography
+          className={classes.description}
+          variant="body1"
+          id="simple-modal-description"
+        >
           {description}
         </Typography>
-        <Button variant='contained' color='primary' className={classes.button} onClick={() => closeModal()} style={{marginRight: '5%'}}>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={() => closeModal()}
+          style={{ marginRight: '5%' }}
+        >
           Playground
         </Button>
-        <Button variant='contained' className={classes.button} onClick={() => window.open(githubRepo, '_blank')}>Contribute</Button>
+        <Button
+          variant="contained"
+          className={classes.button}
+          onClick={() => window.open(githubRepo, '_blank', 'noopener')}
+        >
+          Contribute
+        </Button>
       </div>
     </Modal>
   );
-}
+};
