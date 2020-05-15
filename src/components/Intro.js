@@ -9,22 +9,22 @@ const useStyles = makeStyles(theme => ({
     top: '40%',
     left: '50%',
     transform: `translate(-50%, -40%)`,
-    width: 'min(400px,100vw)',
+    width: 'min(400px, 90vw)',
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(2, 4, 3),
-    borderRadius: '15px',
+    borderRadius: '5px',
     fontSize: '1%',
     maxHeight: '85vh',
-    overflowY: 'scroll'
+    overflowY: 'scroll',
   },
   description: {
-    margin: '1% 0'
+    margin: '1% 0',
   },
   button: {
     fontSize: 'auto',
-    margin: '2% 0 0 0',
-    width: '45%'
-  }
+    margin: '2% 1% 0 1%',
+    width: '45%',
+  },
 }));
 
 export const Intro = ({ isOpen, closeModal }) => {
@@ -55,7 +55,6 @@ export const Intro = ({ isOpen, closeModal }) => {
           color="primary"
           className={classes.button}
           onClick={() => closeModal()}
-          style={{ marginRight: '5%' }}
         >
           Playground
         </Button>
