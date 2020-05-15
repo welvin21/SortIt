@@ -32,7 +32,7 @@ export const SpeedSlider = ({ speed, isSorting }) => {
     <div className={classes.root}>
       <p className={classes.label}>Speed</p>
       <Slider
-        disabled={isSorting ? true : false}
+        disabled={isSorting}
         className={classes.slider}
         value={speed}
         aria-labelledby="discrete-slider"

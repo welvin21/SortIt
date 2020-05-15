@@ -41,7 +41,7 @@ export const SizeSlider = ({ arrSize, isSorting }) => {
     <div className={classes.root}>
       <p className={classes.label}>Size</p>
       <Slider
-        disabled={isSorting ? true : false}
+        disabled={isSorting}
         className={classes.slider}
         value={arrSize}
         aria-labelledby="discrete-slider"

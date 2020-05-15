@@ -17,7 +17,7 @@ export const AlgoSelector = ({ algorithms, algo, isSorting }) => {
   return (
     <div className="selector">
       <Select
-        disabled={isSorting ? true : false}
+        disabled={isSorting}
         className={classes.algoSelector}
         value={algo}
         onChange={e => dispatch(changeAlgo(e.target.value))}
