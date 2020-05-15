@@ -1,17 +1,17 @@
 import { defaultYield, doneYield, swapYield } from './helperFunctions';
 
-export function *shellSort(arr){
+export function* shellSort(arr) {
   let arrCopy = [...arr];
-  let len = arrCopy.length;
+  let arrSize = arrCopy.length;
 
-  let step = Math.floor(len/2);
+  let step = Math.floor(arrSize / 2);
   while (step > 0) {
-    for(let i = step; i < len; i++) {
+    for (let i = step; i < arrSize; i++) {
       let j = i;
       let temp = arrCopy[i];
 
-      while(j >= step && arrCopy[j-step] > temp) {
-        yield* swapYield(arrCopy, j-step, j);
+      while (j >= step && arrCopy[j - step] > temp) {
+        yield* swapYield(arrCopy, j - step, j);
         j -= step;
       }
       arrCopy[j] = temp;
@@ -20,7 +20,7 @@ export function *shellSort(arr){
     if (step === 2) {
       step = 1;
     } else {
-      step = parseInt(step*5 / 11);
+      step = parseInt((step * 5) / 11);
     }
   }
   yield* doneYield(arrCopy);
