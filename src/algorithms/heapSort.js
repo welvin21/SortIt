@@ -1,36 +1,36 @@
 import { defaultYield, doneYield, swapYield } from './helperFunctions';
 
-function *heap_root(arr, len, i){
+function* heap_root(arr, arrSize, i) {
   var left = 2 * i + 1;
   var right = 2 * i + 2;
   var max = i;
 
-  if (left < len && arr[left] > arr[max]) {
+  if (left < arrSize && arr[left] > arr[max]) {
     max = left;
   }
 
-  if (right < len && arr[right] > arr[max])     {
+  if (right < arrSize && arr[right] > arr[max]) {
     max = right;
   }
 
   if (max !== i) {
     yield* swapYield(arr, i, max);
-    yield* heap_root(arr, len, max);
+    yield* heap_root(arr, arrSize, max);
   }
 }
 
-export function *heapSort(arr){
+export function* heapSort(arr) {
   let arrCopy = [...arr];
-  let len = arrCopy.length;
+  let arrSize = arrCopy.length;
 
-  for(var i = Math.floor(len / 2); i >= 0; i -= 1){
-    yield* heap_root(arrCopy, len, i);
+  for (var i = Math.floor(arrSize / 2); i >= 0; i -= 1) {
+    yield* heap_root(arrCopy, arrSize, i);
   }
 
-  for(i = len - 1; i > 0; i--){
+  for (i = arrSize - 1; i > 0; i--) {
     yield* swapYield(arrCopy, 0, i);
-    len--;
-    yield* heap_root(arrCopy, len, 0);
+    arrSize--;
+    yield* heap_root(arrCopy, arrSize, 0);
   }
   yield* doneYield(arrCopy);
   yield* defaultYield(arrCopy);
