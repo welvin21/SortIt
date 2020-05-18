@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Modal, Button, Typography } from '@material-ui/core';
+import { Modal, Button, Typography, Container } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -20,10 +20,14 @@ const useStyles = makeStyles(theme => ({
   description: {
     margin: '1% 0',
   },
+  buttonsBar: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    padding: 5,
+  },
   button: {
     fontSize: 'auto',
-    margin: '2% 1% 0 1%',
-    width: '45%',
+    margin: '1px 2px',
   },
 }));
 
@@ -50,21 +54,25 @@ export const Intro = ({ isOpen, closeModal }) => {
         >
           {description}
         </Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          onClick={() => closeModal()}
-        >
-          Playground
-        </Button>
-        <Button
-          variant="contained"
-          className={classes.button}
-          onClick={() => window.open(githubRepo, '_blank', 'noopener')}
-        >
-          Contribute
-        </Button>
+        <Container className={classes.buttonsBar}>
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            onClick={() => closeModal()}
+          >
+            Playground
+          </Button>
+          <Button
+            fullWidth
+            variant="contained"
+            className={classes.button}
+            onClick={() => window.open(githubRepo, '_blank', 'noopener')}
+          >
+            Contribute
+          </Button>
+        </Container>
       </div>
     </Modal>
   );
